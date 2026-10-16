@@ -21,7 +21,7 @@ module CrystalSaml
     # Get the status code.
     def status_code : String?
       status = find_node_recursive(@document, "Status")
-      return nil unless status
+      return unless status
       sc = status.children.find { |c| c.type.element_node? && local_name(c) == "StatusCode" }
       sc.try(&.["Value"]?)
     end
@@ -35,7 +35,7 @@ module CrystalSaml
     # Get the issuer.
     def issuer : String?
       resp = find_node_recursive(@document, "LogoutResponse")
-      return nil unless resp
+      return unless resp
       resp.children.each do |child|
         if child.type.element_node? && local_name(child) == "Issuer"
           return child.content

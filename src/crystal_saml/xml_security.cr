@@ -258,7 +258,7 @@ module CrystalSaml
         end
 
         # Fall back to settings
-        return nil if @settings.idp_cert.empty?
+        return if @settings.idp_cert.empty?
         Utils.format_cert(@settings.idp_cert)
       end
 

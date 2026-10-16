@@ -1,5 +1,5 @@
 name: saml
-version: 1.18.1.3
+version: 1.18.1.4
 description: |
   SAML v2 toolkit for Crystal. Add SSO to your Crystal applications.
   Port of the ruby-saml gem (v1.18.1).
@@ -12,4 +12,4 @@ crystal: ">= 1.19.0"
 development_dependencies:
   ameba:
     github: crystal-ameba/ameba
-    version: "~> 1.6"
+    version: "~> 1.7"

@@ -70,7 +70,7 @@ module CrystalSaml
     # Get the status code from the response.
     def status_code : String?
       status = find_node_recursive(@document, "Status")
-      return nil unless status
+      return unless status
       status_code_node = status.children.find { |c| c.type.element_node? && local_name(c) == "StatusCode" }
       status_code_node.try(&.["Value"]?)
     end
@@ -91,7 +91,7 @@ module CrystalSaml
     def issuer : String?
       # Look for issuer in the Response element first
       resp = response_node
-      return nil unless resp
+      return unless resp
 
       resp.children.each do |child|
         if child.type.element_node? && local_name(child) == "Issuer"
@@ -104,7 +104,7 @@ module CrystalSaml
     # Get the assertion issuer.
     def assertion_issuer : String?
       assertion = find_node_recursive(@document, "Assertion")
-      return nil unless assertion
+      return unless assertion
 
       assertion.children.each do |child|
         if child.type.element_node? && local_name(child) == "Issuer"
@@ -117,7 +117,7 @@ module CrystalSaml
     # Get the NotBefore condition.
     def not_before : Time?
       conditions = find_node_recursive(@document, "Conditions")
-      return nil unless conditions
+      return unless conditions
       val = conditions["NotBefore"]?
       val ? Utils.parse_timestamp(val) : nil
     end
@@ -125,7 +125,7 @@ module CrystalSaml
     # Get the NotOnOrAfter condition.
     def not_on_or_after : Time?
       conditions = find_node_recursive(@document, "Conditions")
-      return nil unless conditions
+      return unless conditions
       val = conditions["NotOnOrAfter"]?
       val ? Utils.parse_timestamp(val) : nil
     end

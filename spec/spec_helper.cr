@@ -96,46 +96,46 @@ module TestHelper
     end
 
     <<-XML
-    <samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
-                    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-                    ID="#{response_id}"
-                    Version="2.0"
-                    IssueInstant="#{issue_instant}"
-                    Destination="#{destination}"
-                    InResponseTo="#{in_response_to}">
-      <saml:Issuer>#{issuer}</saml:Issuer>
-      <samlp:Status>
-        <samlp:StatusCode Value="#{status}"/>
-      </samlp:Status>
-      <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-                      ID="#{assertion_id}"
+      <samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+                      xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+                      ID="#{response_id}"
                       Version="2.0"
-                      IssueInstant="#{issue_instant}">
+                      IssueInstant="#{issue_instant}"
+                      Destination="#{destination}"
+                      InResponseTo="#{in_response_to}">
         <saml:Issuer>#{issuer}</saml:Issuer>
-        <saml:Subject>
-          <saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">#{name_id}</saml:NameID>
-          <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
-            <saml:SubjectConfirmationData InResponseTo="#{in_response_to}"
-                                          NotOnOrAfter="#{noa}"
-                                          Recipient="#{destination}"/>
-          </saml:SubjectConfirmation>
-        </saml:Subject>
-        <saml:Conditions NotBefore="#{nb}" NotOnOrAfter="#{noa}">
-          <saml:AudienceRestriction>
-            <saml:Audience>#{audience}</saml:Audience>
-          </saml:AudienceRestriction>
-        </saml:Conditions>
-        <saml:AuthnStatement AuthnInstant="#{issue_instant}" SessionIndex="#{session_index}">
-          <saml:AuthnContext>
-            <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport</saml:AuthnContextClassRef>
-          </saml:AuthnContext>
-        </saml:AuthnStatement>
-        <saml:AttributeStatement>
-          #{attrs_xml}
-        </saml:AttributeStatement>
-      </saml:Assertion>
-    </samlp:Response>
-    XML
+        <samlp:Status>
+          <samlp:StatusCode Value="#{status}"/>
+        </samlp:Status>
+        <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+                        ID="#{assertion_id}"
+                        Version="2.0"
+                        IssueInstant="#{issue_instant}">
+          <saml:Issuer>#{issuer}</saml:Issuer>
+          <saml:Subject>
+            <saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">#{name_id}</saml:NameID>
+            <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+              <saml:SubjectConfirmationData InResponseTo="#{in_response_to}"
+                                            NotOnOrAfter="#{noa}"
+                                            Recipient="#{destination}"/>
+            </saml:SubjectConfirmation>
+          </saml:Subject>
+          <saml:Conditions NotBefore="#{nb}" NotOnOrAfter="#{noa}">
+            <saml:AudienceRestriction>
+              <saml:Audience>#{audience}</saml:Audience>
+            </saml:AudienceRestriction>
+          </saml:Conditions>
+          <saml:AuthnStatement AuthnInstant="#{issue_instant}" SessionIndex="#{session_index}">
+            <saml:AuthnContext>
+              <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport</saml:AuthnContextClassRef>
+            </saml:AuthnContext>
+          </saml:AuthnStatement>
+          <saml:AttributeStatement>
+            #{attrs_xml}
+          </saml:AttributeStatement>
+        </saml:Assertion>
+      </samlp:Response>
+      XML
   end
 
   # Build and encode a SAML response as Base64.

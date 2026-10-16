@@ -385,19 +385,19 @@ describe CrystalSaml::LogoutResponse do
     settings = TestHelper.test_settings
 
     response_xml = <<-XML
-    <samlp:LogoutResponse xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
-                          xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-                          ID="_logout_resp_1"
-                          Version="2.0"
-                          IssueInstant="2024-01-15T10:00:00Z"
-                          Destination="https://sp.example.com/saml/logout"
-                          InResponseTo="_logout_req_1">
-      <saml:Issuer>https://idp.example.com</saml:Issuer>
-      <samlp:Status>
-        <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
-      </samlp:Status>
-    </samlp:LogoutResponse>
-    XML
+      <samlp:LogoutResponse xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+                            xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+                            ID="_logout_resp_1"
+                            Version="2.0"
+                            IssueInstant="2024-01-15T10:00:00Z"
+                            Destination="https://sp.example.com/saml/logout"
+                            InResponseTo="_logout_req_1">
+        <saml:Issuer>https://idp.example.com</saml:Issuer>
+        <samlp:Status>
+          <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
+        </samlp:Status>
+      </samlp:LogoutResponse>
+      XML
 
     encoded = CrystalSaml::Utils.base64_encode(response_xml)
     response = CrystalSaml::LogoutResponse.new(settings, encoded)
@@ -410,15 +410,15 @@ describe CrystalSaml::LogoutResponse do
   it "rejects non-success status" do
     settings = TestHelper.test_settings
     response_xml = <<-XML
-    <samlp:LogoutResponse xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
-                          xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-                          ID="_lr1" Version="2.0" IssueInstant="2024-01-15T10:00:00Z">
-      <saml:Issuer>https://idp.example.com</saml:Issuer>
-      <samlp:Status>
-        <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Requester"/>
-      </samlp:Status>
-    </samlp:LogoutResponse>
-    XML
+      <samlp:LogoutResponse xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+                            xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+                            ID="_lr1" Version="2.0" IssueInstant="2024-01-15T10:00:00Z">
+        <saml:Issuer>https://idp.example.com</saml:Issuer>
+        <samlp:Status>
+          <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Requester"/>
+        </samlp:Status>
+      </samlp:LogoutResponse>
+      XML
 
     encoded = CrystalSaml::Utils.base64_encode(response_xml)
     response = CrystalSaml::LogoutResponse.new(settings, encoded)
@@ -499,8 +499,8 @@ describe "XML Signature Validation" do
 
     # Build assertion content (without signature)
     assertion_xml = <<-XML
-    <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="#{assertion_id}" Version="2.0" IssueInstant="#{issue_instant}"><saml:Issuer>https://idp.example.com</saml:Issuer><saml:Subject><saml:NameID>user@example.com</saml:NameID></saml:Subject></saml:Assertion>
-    XML
+      <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="#{assertion_id}" Version="2.0" IssueInstant="#{issue_instant}"><saml:Issuer>https://idp.example.com</saml:Issuer><saml:Subject><saml:NameID>user@example.com</saml:NameID></saml:Subject></saml:Assertion>
+      XML
 
     # Parse and canonicalize for digest
     assertion_doc = XML.parse(assertion_xml)
@@ -513,8 +513,8 @@ describe "XML Signature Validation" do
 
     # Build SignedInfo
     signed_info_xml = <<-XML
-    <ds:SignedInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/><ds:Reference URI="##{assertion_id}"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>#{digest_b64}</ds:DigestValue></ds:Reference></ds:SignedInfo>
-    XML
+      <ds:SignedInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/><ds:Reference URI="##{assertion_id}"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>#{digest_b64}</ds:DigestValue></ds:Reference></ds:SignedInfo>
+      XML
 
     # Canonicalize SignedInfo
     si_doc = XML.parse(signed_info_xml)
@@ -533,8 +533,8 @@ describe "XML Signature Validation" do
     # Build complete signed response
     response_id = CrystalSaml::Utils.uuid
     full_response = <<-XML
-    <samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="#{response_id}" Version="2.0" IssueInstant="#{issue_instant}" Destination="https://sp.example.com/saml/callback"><saml:Issuer>https://idp.example.com</saml:Issuer><samlp:Status><samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/></samlp:Status><saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="#{assertion_id}" Version="2.0" IssueInstant="#{issue_instant}"><saml:Issuer>https://idp.example.com</saml:Issuer><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/><ds:Reference URI="##{assertion_id}"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>#{digest_b64}</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>#{sig_b64}</ds:SignatureValue><ds:KeyInfo><ds:X509Data><ds:X509Certificate>#{cert_b64}</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature><saml:Subject><saml:NameID>user@example.com</saml:NameID></saml:Subject></saml:Assertion></samlp:Response>
-    XML
+      <samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="#{response_id}" Version="2.0" IssueInstant="#{issue_instant}" Destination="https://sp.example.com/saml/callback"><saml:Issuer>https://idp.example.com</saml:Issuer><samlp:Status><samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/></samlp:Status><saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="#{assertion_id}" Version="2.0" IssueInstant="#{issue_instant}"><saml:Issuer>https://idp.example.com</saml:Issuer><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/><ds:Reference URI="##{assertion_id}"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>#{digest_b64}</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>#{sig_b64}</ds:SignatureValue><ds:KeyInfo><ds:X509Data><ds:X509Certificate>#{cert_b64}</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature><saml:Subject><saml:NameID>user@example.com</saml:NameID></saml:Subject></saml:Assertion></samlp:Response>
+      XML
 
     encoded = CrystalSaml::Utils.base64_encode(full_response)
     response = CrystalSaml::Response.new(settings, encoded)
